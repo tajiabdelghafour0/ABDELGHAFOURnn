@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D0F12"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <!-- Top Header: Pixel 6 Pro & Thermal Badge -->
+        <LinearLayout
+            android:id="@+id/headerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvAppTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="My PixelFlow"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvAppSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pixel 6 Pro · Tensor G1 · 4K60 10-bit HDR"
+                    android:textColor="#94A3B8"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Thermal Sensor Badge -->
+            <TextView
+                android:id="@+id/tvThermalBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_badge"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="38.4°C · Normal"
+                android:textColor="#EA8612"
+                android:textSize="12sp"
+                android:fontFamily="monospace"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Live Card: Latest Video from DCIM/Camera -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardVideo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:cardBackgroundColor="#14171D"
+            app:cardCornerRadius="20dp"
+            app:strokeColor="#252A36"
+            app:strokeWidth="1dp"
+            app:layout_constraintTop_toBottomOf="@id/headerLayout">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Video Thumbnail with 4K60 HDR overlay -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp">
+
+                    <ImageView
+                        android:id="@+id/ivThumbnail"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:background="#1C212B"
+                        tools:src="@android:drawable/ic_menu_gallery" />
+
+                    <!-- 4K60 10-bit HDR Badge Overlay -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|start"
+                        android:layout_margin="12dp"
+                        android:orientation="horizontal"
+                        android:background="#D0000000"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4K 60FPS · 10-BIT HDR"
+                            android:textColor="#EA8612"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:fontFamily="monospace" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvDuration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_margin="12dp"
+                        android:background="#D0000000"
+                        android:paddingHorizontal="6dp"
+                        android:paddingVertical="2dp"
+                        android:text="01:00"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:fontFamily="monospace" />
+                </FrameLayout>
+
+                <!-- Unboxed Clean Metadata -->
+                <TextView
+                    android:id="@+id/tvVideoName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="PXL_20261012_125022830.TS.mp4"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvVideoDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="1.18 GB · 3840x2160 · HEVC Main 10 · DCIM/Camera"
+                    android:textColor="#94A3B8"
+                    android:textSize="12sp"
+                    android:fontFamily="monospace" />
+
+                <!-- Smart Filter Status -->
+                <TextView
+                    android:id="@+id/tvSmartFilterStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="#101318"
+                    android:padding="10dp"
+                    android:text="✨ Smart Sensor: إضاءة نقية (Luma 142/255) -> تم إلغاء الفلتر الثقيل لحماية ملامح الوجه، مع درع unsharp 0.6."
+                    android:textColor="#38BDF8"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- THE ONE BIG BUTTON: "وجد ليا كلشي 4K60" -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnOneBigAction"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginTop="24dp"
+            android:text="وجد ليا كلشي 4K60"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:backgroundTint="#EA8612"
+            app:cornerRadius="18dp"
+            app:icon="@android:drawable/ic_media_play"
+            app:iconTint="#000000"
+            app:iconGravity="textStart"
+            app:layout_constraintTop_toBottomOf="@id/cardVideo" />
+
+        <!-- Subtitle below One Big Button -->
+        <TextView
+            android:id="@+id/tvButtonHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:text="Master 4K60 (150MB) كيبقى فتيليفونك + 6 Proxies (20MB) لـ Muse/Gemini"
+            android:textColor="#CBD5E1"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/btnOneBigAction" />
+
+        <!-- Button 2: Choose from Gallery -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPickGallery"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="14dp"
+            android:text="اختار من المعرض"
+            android:textColor="#E2E8F0"
+            android:textSize="14sp"
+            app:cornerRadius="14dp"
+            app:strokeColor="#334155"
+            app:layout_constraintTop_toBottomOf="@id/tvButtonHint" />
+
+        <!-- Progress Layout (Visible when encoding) -->
+        <LinearLayout
+            android:id="@+id/layoutProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="#161A22"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/btnPickGallery">
+
+            <TextView
+                android:id="@+id/tvProgressStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="كيضغط Master 4K60 10-bit HDR... 45%"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:layout_marginTop="10dp"
+                android:progress="45"
+                android:progressTint="#EA8612" />
+        </LinearLayout>
+
+        <!-- Result Layout (Visible upon completion) -->
+        <LinearLayout
+            android:id="@+id/layoutResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="#131B15"
+            android:orientation="vertical"
+            android:padding="18dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/layoutProgress">
+
+            <TextView
+                android:id="@+id/tvSavedResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="وفرتي 850MB"
+                android:textColor="#10B981"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="MASTER: 150MB 4K60 10-bit HDR محفوظ\nPROXY: 20MB (6 أجزاء جاهزة للرفع على 2G/3G)"
+                android:textColor="#E2E8F0"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnPreview"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:backgroundTint="#262D3D"
+                    android:text="شوف"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/btnShare"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:backgroundTint="#EA8612"
+                    android:text="بارطاجي"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnOpenProxies"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#155E75"
+                android:text="افتح مجلد الأجزاء للرفع"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

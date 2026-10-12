@@ -12,6 +12,7 @@ import {
   ExternalLink,
   ShieldAlert,
   Cpu,
+  Github,
 } from 'lucide-react';
 
 interface ApkExportModalProps {
@@ -25,7 +26,7 @@ export const ApkExportModal: React.FC<ApkExportModalProps> = ({
   onClose,
   language,
 }) => {
-  const [activeTab, setActiveTab] = useState<'build' | 'code' | 'termux'>('build');
+  const [activeTab, setActiveTab] = useState<'build' | 'github' | 'code'>('build');
   const [selectedFile, setSelectedFile] = useState<keyof typeof ANDROID_FILES>('compressWorker');
   const [copied, setCopied] = useState(false);
   const [downloadingZip, setDownloadingZip] = useState(false);
@@ -41,7 +42,7 @@ export const ApkExportModal: React.FC<ApkExportModalProps> = ({
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'MyPixelFlow_Pixel6Pro_AndroidProject.zip';
+      a.download = 'MyPixelFlow_Android_Studio_Gradle_Project.zip';
       a.click();
       URL.revokeObjectURL(url);
     } finally {
@@ -67,13 +68,13 @@ export const ApkExportModal: React.FC<ApkExportModalProps> = ({
             <div>
               <h3 className="text-base sm:text-lg font-bold text-white">
                 {isArabic
-                  ? 'بناء وتثبيت APK على Pixel 6 Pro (Sideload)'
-                  : 'Sideload APK for Google Pixel 6 Pro'}
+                  ? 'مشروع الأندرويد الحقيقي (Android Studio & Gradle Project)'
+                  : 'Real Android Studio Gradle Project (Pixel 6 Pro)'}
               </h3>
               <p className="text-xs text-slate-400">
                 {isArabic
-                  ? 'مشروع أندرويد جاهز مع ffmpeg-kit v6.0 و WorkManager و Thermal Guard'
-                  : 'Complete Android Studio Project + Termux On-Device APK Builder'}
+                  ? 'مشروع Gradle حقيقي جاهز للبناء مع ./gradlew assembleDebug و GitHub Actions'
+                  : 'Complete Gradle Project buildable with ./gradlew assembleDebug & GitHub Actions'}
               </p>
             </div>
           </div>
@@ -95,17 +96,17 @@ export const ApkExportModal: React.FC<ApkExportModalProps> = ({
                 : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
-            {isArabic ? '1. تحميل المشروع (1-Click ZIP)' : '1. Download Project (ZIP)'}
+            {isArabic ? '1. تحميل مشروع Gradle (.ZIP)' : '1. Download Gradle Project (.ZIP)'}
           </button>
           <button
-            onClick={() => setActiveTab('termux')}
+            onClick={() => setActiveTab('github')}
             className={`py-3 px-3 border-b-2 transition-colors cursor-pointer ${
-              activeTab === 'termux'
+              activeTab === 'github'
                 ? 'border-[#ea8612] text-[#ea8612]'
                 : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
-            {isArabic ? '2. بناء الـ APK عبر Termux (بدون PC)' : '2. Termux On-Device Build'}
+            {isArabic ? '2. بناء APK عبر GitHub Actions' : '2. Build via GitHub Actions / CLI'}
           </button>
           <button
             onClick={() => setActiveTab('code')}
@@ -115,7 +116,7 @@ export const ApkExportModal: React.FC<ApkExportModalProps> = ({
                 : 'border-transparent text-slate-400 hover:text-white'
             }`}
           >
-            {isArabic ? '3. معاينة كود Kotlin و FFmpeg' : '3. Inspect Kotlin Source'}
+            {isArabic ? '3. معاينة كود الأندرويد' : '3. Inspect Android Files'}
           </button>
         </div>
 
@@ -127,13 +128,13 @@ export const ApkExportModal: React.FC<ApkExportModalProps> = ({
                 <div className="flex items-center gap-2 text-[#ea8612]">
                   <Smartphone className="w-5 h-5" />
                   <span className="font-bold text-sm text-white">
-                    {isArabic ? 'حزمة التثبيت الشخصي لـ Pixel 6 Pro' : 'Personal Sideload Package'}
+                    {isArabic ? 'ملف الـ ZIP يحتوي على مشروع الأندرويد الحقيقي بالكامل:' : 'The ZIP Contains the Complete Real Android Project:'}
                   </span>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   {isArabic
-                    ? 'هذا المشروع كامل ومجهز بجميع مكتبات الأندرويد المطلوبة: FFmpeg Kit v6.0 LTS مع دعم 16KB Page Size الخاص بـ Android 15، و WorkManager لتشغيل الضغط في الخلفية، ونظام Thermal Guard لحماية معالج Tensor G1 من السخونية.'
-                    : 'This production-ready native Android project contains everything: FFmpeg Kit v6.0 LTS with 16KB page size support for Android 15, WorkManager background foreground service, and Tensor G1 Thermal Guard.'}
+                    ? 'مشروع Gradle أصلي متكامل خاص بـ Google Pixel 6 Pro، يحتوي على settings.gradle، build.gradle، gradlew، app/build.gradle (مع ffmpeg-kit-full-gpl:6.0-2.LTS و WorkManager 2.9.0)، AndroidManifest.xml، MainActivity.kt، CompressWorker.kt (مع نظام Dual-Track V3 الكامل)، و ThermalGuard.kt.'
+                    : 'A complete native Gradle project built specifically for Google Pixel 6 Pro. Contains settings.gradle, build.gradle, gradlew wrappers, app/build.gradle with ffmpeg-kit-full-gpl:6.0-2.LTS, WorkManager 2.9.0, AndroidManifest.xml, MainActivity.kt, CompressWorker.kt (with full V3 Dual-Track engine), and ThermalGuard.kt.'}
                 </p>
 
                 <div className="pt-2">
@@ -146,11 +147,11 @@ export const ApkExportModal: React.FC<ApkExportModalProps> = ({
                     <span>
                       {downloadingZip
                         ? isArabic
-                          ? 'جاري تجميع الملفات...'
-                          : 'Bundling Project...'
+                          ? 'جاري تجميع ملفات الأندرويد...'
+                          : 'Packaging Gradle Project...'
                         : isArabic
-                        ? 'تحميل مشروع الأندرويد كامل (MyPixelFlow.zip)'
-                        : 'Download Complete Project (.ZIP)'}
+                        ? 'تحميل مشروع الأندرويد كامل (MyPixelFlow_Android_Project.zip)'
+                        : 'Download Real Android Gradle Project (.ZIP)'}
                     </span>
                   </button>
                 </div>
@@ -159,47 +160,76 @@ export const ApkExportModal: React.FC<ApkExportModalProps> = ({
               {/* Guarantees checklist */}
               <div className="p-4 rounded-xl bg-[#0f1115] border border-white/5 space-y-2">
                 <h4 className="text-xs font-bold text-slate-200">
-                  {isArabic ? 'مواصفات الـ APK المصنوع:' : 'Native App Specifications:'}
+                  {isArabic ? 'هيكل المشروع داخل الـ ZIP:' : 'Project Hierarchy in ZIP:'}
                 </h4>
                 <ul className="text-xs text-slate-400 space-y-1 font-mono">
-                  <li>✓ Package: com.pixelflow.keeper</li>
-                  <li>✓ Target SDK: 35 (Android 15 Ready - 16KB Alignment)</li>
-                  <li>✓ CPU ABI: arm64-v8a (Google Tensor G1 Native)</li>
-                  <li>✓ Permissions: READ_MEDIA_VIDEO, POST_NOTIFICATIONS (No Internet needed - 100% offline)</li>
-                  <li>✓ Background Service: Foreground WorkManager with Ongoing Notification</li>
+                  <li>📁 MyPixelFlow/</li>
+                  <li>├── 📄 settings.gradle (include ':app')</li>
+                  <li>├── 📄 build.gradle (AGP 8.2.0, Kotlin 1.9.22)</li>
+                  <li>├── 📄 gradlew & gradlew.bat (Gradle 8.4 wrappers)</li>
+                  <li>├── 📁 gradle/wrapper/gradle-wrapper.properties</li>
+                  <li>├── 📁 .github/workflows/build-apk.yml (automated GitHub build)</li>
+                  <li>└── 📁 app/</li>
+                  <li>    ├── 📄 build.gradle (namespace 'com.mypixelflow', compileSdk 34)</li>
+                  <li>    └── 📁 src/main/</li>
+                  <li>        ├── 📄 AndroidManifest.xml (READ_MEDIA_VIDEO, FOREGROUND_SERVICE)</li>
+                  <li>        ├── 📁 java/com/mypixelflow/</li>
+                  <li>        │   ├── 📄 MainActivity.kt (DCIM Detection, One Big Button)</li>
+                  <li>        │   ├── 📄 CompressWorker.kt (Master 4K60 + Proxies Dual-Track)</li>
+                  <li>        │   └── 📄 ThermalGuard.kt (Tensor G1 sensor monitor)</li>
+                  <li>        └── 📁 res/layout/activity_main.xml (Material You 3 Dark)</li>
                 </ul>
               </div>
             </div>
           )}
 
-          {activeTab === 'termux' && (
+          {activeTab === 'github' && (
             <div className="space-y-4">
               <div className="p-4 rounded-xl bg-[#12161f] border border-cyan-500/30 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-cyan-400">
-                    <Terminal className="w-5 h-5" />
+                    <Github className="w-5 h-5" />
                     <span className="font-bold text-sm text-white">
-                      {isArabic ? 'بناء الـ APK مباشرة داخل التيليفون' : 'Build On Pixel 6 Pro via Termux'}
+                      {isArabic ? 'بناء الـ APK تلقائياً عبر GitHub Actions' : 'Automated Build in GitHub Actions'}
                     </span>
                   </div>
                   <button
-                    onClick={() => handleCopyCode(ANDROID_FILES.termuxBuildScript)}
+                    onClick={() => handleCopyCode(ANDROID_FILES.githubWorkflow)}
                     className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 text-white text-xs font-medium cursor-pointer"
                   >
                     {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copied ? 'منسوخ!' : 'نسخ السكربت'}</span>
+                    <span>{copied ? 'منسوخ!' : 'نسخ workflow'}</span>
                   </button>
                 </div>
 
                 <p className="text-xs text-slate-300">
                   {isArabic
-                    ? 'إيلا ما عندكش بيسي، تقدر تبني الـ APK مباشرة فـ Pixel 6 Pro ديالك باستعمال تطبيق Termux مجاناً وبدون روت:'
-                    : 'If you do not have a computer, you can compile the APK directly on your Pixel 6 Pro using Termux (no root required):'}
+                    ? 'مشروع الـ ZIP يحتوي بالفعل على ملف .github/workflows/build-apk.yml. غير دير Push فـ GitHub، وغادي تبنى ليك الـ APK تلقائياً في دقيقتين وتقدر تنزلها مباشرة للموبايل!'
+                    : 'The project includes a ready-to-use GitHub Actions workflow. Simply push the files to GitHub, and your APK will be automatically built and downloadable under Actions Artifacts in ~2 minutes!'}
                 </p>
 
                 <div className="p-3 bg-black/80 rounded-xl font-mono text-[11px] text-emerald-400 overflow-x-auto">
-                  <pre>{ANDROID_FILES.termuxBuildScript}</pre>
+                  <pre>{ANDROID_FILES.githubWorkflow}</pre>
                 </div>
+              </div>
+
+              {/* Local build commands */}
+              <div className="p-4 rounded-xl bg-[#0f1115] border border-white/5 space-y-2">
+                <h4 className="text-xs font-bold text-slate-200">
+                  {isArabic ? 'أو ابنيها محلياً بسطر واحد:' : 'Or Build Locally with One Command:'}
+                </h4>
+                <div className="p-3 bg-black/70 rounded-lg font-mono text-xs text-amber-300 flex items-center justify-between">
+                  <code>./gradlew assembleDebug</code>
+                  <button
+                    onClick={() => handleCopyCode('./gradlew assembleDebug')}
+                    className="p-1 hover:text-white"
+                  >
+                    <Copy className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                <p className="text-[11px] text-slate-400">
+                  APK Output: <span className="font-mono text-slate-300">app/build/outputs/apk/debug/app-debug.apk</span>
+                </p>
               </div>
             </div>
           )}
@@ -218,12 +248,15 @@ export const ApkExportModal: React.FC<ApkExportModalProps> = ({
                         : 'bg-[#181c24] text-slate-300 hover:bg-[#202530]'
                     }`}
                   >
+                    {fileKey === 'settingsGradle' && 'settings.gradle'}
+                    {fileKey === 'buildGradleRoot' && 'build.gradle (root)'}
+                    {fileKey === 'buildGradleApp' && 'app/build.gradle'}
+                    {fileKey === 'manifest' && 'AndroidManifest.xml'}
+                    {fileKey === 'mainActivity' && 'MainActivity.kt'}
                     {fileKey === 'compressWorker' && 'CompressWorker.kt'}
                     {fileKey === 'thermalGuard' && 'ThermalGuard.kt'}
-                    {fileKey === 'mainActivity' && 'MainActivity.kt'}
-                    {fileKey === 'buildGradleApp' && 'build.gradle.kts'}
-                    {fileKey === 'manifest' && 'AndroidManifest.xml'}
-                    {fileKey === 'termuxBuildScript' && 'build_apk.sh'}
+                    {fileKey === 'layoutActivityMain' && 'activity_main.xml'}
+                    {fileKey === 'githubWorkflow' && 'build-apk.yml'}
                     {fileKey === 'readme' && 'README.md'}
                   </button>
                 ))}
@@ -248,7 +281,7 @@ export const ApkExportModal: React.FC<ApkExportModalProps> = ({
 
         {/* Footer */}
         <div className="p-4 border-t border-white/10 bg-[#101217] flex items-center justify-between text-xs text-slate-400">
-          <span>Pixel 6 Pro · Tensor G1 · ffmpeg-kit-full-gpl 6.0</span>
+          <span>Namespace: com.mypixelflow · compileSdk 34 · ffmpeg-kit-full-gpl 6.0</span>
           <button
             onClick={onClose}
             className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium cursor-pointer"

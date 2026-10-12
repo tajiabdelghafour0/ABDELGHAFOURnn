@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">My PixelFlow</string>
+    <string name="action_compress_4k60">وجد ليا كلشي 4K60</string>
+    <string name="action_pick_gallery">اختار من المعرض</string>
+    <string name="action_preview">شوف</string>
+    <string name="action_share">بارطاجي</string>
+    <string name="action_open_proxies">افتح مجلد الأجزاء للرفع</string>
+    <string name="result_saved">وفرتي 850MB</string>
+</resources>
