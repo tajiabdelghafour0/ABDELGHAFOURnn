@@ -1,0 +1,8 @@
+{
+  "name": "My PixelFlow - Personal 4K60 Keeper",
+  "description": "Personal 4K 60FPS 10-bit HDR Dual-Track compressor and AI proxy generator for Google Pixel 6 Pro.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
